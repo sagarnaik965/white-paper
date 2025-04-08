@@ -1,0 +1,10 @@
+https://ieeexplore.ieee.org/abstract/document/9074925
+https://ieeexplore.ieee.org/abstract/document/9242268
+https://ieeexplore.ieee.org/abstract/document/10495554
+
+
+Iperf
+This open-source tool is indispensable for measuring network performance in IP-based computer networks. 
+iPerf excels in conducting essential assessments, including bandwidth testing, latency, packet loss, and more.
+iPerf designates one device as the server, which actively listens for connections, operating on a client-server model. 
+Another device initialize the connections, working as the client, to perform thorough performance tests.
