@@ -81,4 +81,55 @@ Great—this is a solid foundation for a white paper. Here's a suggested structu
 
 ---
 
-Want me to scaffold this into a downloadable Word doc or help draft one of the sections?
+To elaborate your performance tuning methodology for Dockerized applications using standard parameters, you can present it in a structured way that highlights how each layer (VM, kernel, Docker) impacts container performance. Here’s how you can expand your section with clarity and standard industry parameters:
+
+---
+
+### 4. Performance Tuning Methodology (Detailed)
+
+#### 4.1 Environment Setup
+* **Hardware**: Uniform hardware baseline to eliminate bias, using configurable VMs for reproducible tests.
+* **OS Distributions**: Ubuntu 20.04 LTS and CentOS 7 to observe kernel behavior across distributions.
+* **Hypervisors**: KVM and VirtualBox for controlled isolation.
+* **Docker Version**: Docker Engine 25.x (latest stable) with containerd runtime.
+
+#### 4.2 Applications Under Test
+* **NGINX**: Tested as a stateless, high-concurrency web server.
+* **MySQL**: Representing stateful, I/O-intensive workloads.
+* **Load Testing Tools**:
+  - Apache JMeter (for HTTP-based load).
+  - Locust (for distributed and programmable load testing).
+
+#### 4.3 Tuning Parameters
+
+**A. VM-Level Configurations**
+| Parameter           | Purpose                                  | Range/Values Used         |
+|---------------------|-------------------------------------------|----------------------------|
+| `vCPU count`        | Simulate CPU scaling                     | 1, 2, 4, 8 cores           |
+| `RAM allocation`    | Simulate memory stress                   | 1GB, 2GB, 4GB, 8GB         |
+| `Disk I/O limits`   | Throttle disk throughput (I/O contention)| 10MB/s, 50MB/s, unlimited  |
+| `NIC model`         | Network emulation                        | e1000, virtio-net          |
+
+**B. Kernel-Level Tunings**
+| Parameter              | Description                                       | Values Used              |
+|------------------------|---------------------------------------------------|--------------------------|
+| `vm.swappiness`        | Swap tendency                                     | 10, 30, 60               |
+| `kernel.sched_child_runs_first` | CPU scheduling tweak              | 0, 1                     |
+| `net.core.somaxconn`   | TCP backlog queue                                | 128, 512, 1024           |
+| `net.ipv4.tcp_tw_reuse`| Reuse TIME_WAIT connections                      | 0, 1                     |
+| `fs.file-max`          | Maximum open file handles                        | 100000, 500000           |
+
+**C. Docker-Level Settings**
+| Parameter             | Description                                        | Values Used              |
+|-----------------------|----------------------------------------------------|--------------------------|
+| `--cpuset-cpus`       | Assign containers to specific cores               | `0-1`, `0,2`, `1,3`      |
+| `--memory`            | Limit memory usage                                | `512m`, `1g`, `2g`       |
+| `--memory-swap`       | Combined memory + swap cap                        | Same as memory, or 2x    |
+| `--volume`            | Test I/O via bind mounts and named volumes        | `tmpfs`, SSD-backed path |
+| `--network`           | Simulate isolated vs shared bridge modes          | `bridge`, `host`, `none` |
+
+---
+
+This layout helps show reviewers or readers how you methodically explored each layer of optimization, and it gives repeatable configuration references.
+
+Let me know if you'd like to visualize or format this into a table or chart for a paper or report!
